@@ -132,7 +132,7 @@ export default function Home() {
                     </div>
                     <div className="history-list">
                         {history.length > 0 ? (
-                            history.map((record) => (
+                            history.map((record: TxRecord) => (
                                 <button
                                     key={record.id}
                                     className={`history-item ${recordId === record.id ? 'active' : ''}`}
@@ -238,65 +238,6 @@ export default function Home() {
             <footer style={{ marginTop: '4rem', textAlign: 'center', color: '#64748b', fontSize: '0.875rem' }}>
                 Built with Next.js & Shared Envelope Encryption
             </footer>
-
-            <style jsx global>{`
-        @keyframes spin {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .animate-spin {
-          animation: spin 1s linear infinite;
-        }
-        .main-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .glass-sidebar {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            height: fit-content;
-            max-height: 600px;
-            display: flex;
-            flex-direction: column;
-        }
-        .history-list {
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-        .history-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid transparent;
-            border-radius: 0.5rem;
-            padding: 0.75rem 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: #e2e8f0;
-        }
-        .history-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        .history-item.active {
-            background: rgba(56, 189, 248, 0.1);
-            border-color: #38bdf8;
-        }
-        @media (max-width: 1024px) {
-            .main-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-      `}</style>
         </main>
     );
 }
