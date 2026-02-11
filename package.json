@@ -11,6 +11,10 @@
         "typescript": "^5.0.0",
         "prettier": "^3.0.0"
     },
+    "workspaces": [
+        "apps/*",
+        "packages/*"
+    ],
     "packageManager": "pnpm@8.0.0",
     "engines": {
         "node": ">=20.0.0"

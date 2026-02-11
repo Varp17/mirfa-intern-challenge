@@ -1,2 +1,2 @@
-pnpm config set registry https://registry.npmmirror.com
+pnpm config set registry registry https://registry.npmjs.org/
 pnpm install --no-frozen-lockfile

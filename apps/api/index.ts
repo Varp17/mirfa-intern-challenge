@@ -104,16 +104,23 @@ fastify.post('/tx/:id/decrypt', async (request, reply) => {
 // Health check
 fastify.get('/health', async () => ({ status: 'ok' }));
 
-// Start server
-const start = async () => {
-    try {
-        const port = Number(process.env.PORT) || 3001;
-        await fastify.listen({ port, host: '0.0.0.0' });
-        console.log(`API server listening on port ${port}`);
-    } catch (err) {
-        fastify.log.error(err);
-        process.exit(1);
-    }
-};
+// Start server for local development
+if (process.env.NODE_ENV !== 'test') {
+    const start = async () => {
+        try {
+            const port = Number(process.env.PORT) || 3001;
+            await fastify.listen({ port, host: '0.0.0.0' });
+            console.log(`API server listening on port ${port}`);
+        } catch (err) {
+            fastify.log.error(err);
+            process.exit(1);
+        }
+    };
+    start();
+}
 
-start();
+// Export for Vercel
+export default async (req: any, res: any) => {
+    await fastify.ready();
+    fastify.server.emit('request', req, res);
+};

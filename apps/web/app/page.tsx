@@ -12,7 +12,7 @@ declare const Send: any;
 declare const RefreshCw: any;
 declare const AlertCircle: any;
 
-const API_URL = (process as any).env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+const API_URL = (process as any).env.NEXT_PUBLIC_API_URL || '/api';
 
 export default function Home() {
     const [partyId, setPartyId] = useState('');
