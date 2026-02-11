@@ -1,36 +1,15 @@
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { join } from 'path';
+
 import { encryptTx, decryptTx, TxSecureRecord } from './crypto';
 
 class JsonStore {
-    private filePath: string;
     private memory: Map<string, TxSecureRecord>;
 
-    constructor(filename: string) {
-        this.filePath = join(process.cwd(), filename);
+    constructor() {
         this.memory = new Map();
-        this.load();
-    }
-
-    private load() {
-        if (existsSync(this.filePath)) {
-            try {
-                const data = JSON.parse(readFileSync(this.filePath, 'utf8'));
-                Object.entries(data).forEach(([id, record]) => this.memory.set(id, record as TxSecureRecord));
-            } catch (e) {
-                console.warn('DB load failed, starting fresh');
-            }
-        }
-    }
-
-    private save() {
-        const obj = Object.fromEntries(this.memory);
-        writeFileSync(this.filePath, JSON.stringify(obj, null, 2));
     }
 
     set(id: string, record: TxSecureRecord) {
         this.memory.set(id, record);
-        this.save();
     }
 
     get(id: string) {
@@ -44,11 +23,12 @@ class JsonStore {
     }
 }
 
+
 class TxService {
     private store: JsonStore;
 
     constructor() {
-        this.store = new JsonStore('db.json');
+        this.store = new JsonStore();
     }
 
     async encryptAndStore(partyId: string, payload: any) {
