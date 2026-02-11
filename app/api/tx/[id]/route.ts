@@ -6,7 +6,7 @@ export async function GET(
     { params }: { params: { id: string } }
 ) {
     try {
-        const record = txService.getRecord(params.id);
+        const record = await txService.getRecord(params.id);
         return NextResponse.json(record);
     } catch (error: any) {
         if (error.message === 'NOT_FOUND') {
